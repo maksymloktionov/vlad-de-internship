@@ -1,10 +1,5 @@
 FROM python:3.11.4
 
-WORKDIR /app
+COPY requirements.txt .
 
-RUN pip install flask
-RUN pip install psycopg2-binary
-
-COPY . .
-
-CMD ["flask", "run", "--host=0.0.0.0"]
+RUN python -m pip install -r /requirements.txt
