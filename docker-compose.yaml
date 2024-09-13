@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=my_first  
+      - POSTGRES_USER=vlad    
+      - POSTGRES_PASSWORD=1234 
+      - FLASK_APP=app.py # app.py will be needed
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: my_first 
+      POSTGRES_USER: vlad   
+      POSTGRES_PASSWORD: 1234 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
