@@ -1,0 +1,16 @@
+-- Department Top Three Salaries (https://leetcode.com/problems/department-top-three-salaries/description/)
+
+SELECT d.name as Department, e.name as employee, s.salary
+FROM Employee as e
+INNER JOIN Department as d
+ON e.departmentId = d.id
+INNER JOIN (
+    SELECT name as new_name, salary
+    FROM
+    (
+    SELECT name, salary, DENSE_RANK() OVER(PARTITION BY departmentId ORDER BY salary DESC) as rank
+    FROM Employee
+    )
+    WHERE rank <= 3
+) as s
+ON e.name = s.new_name AND e.salary = s.salary
