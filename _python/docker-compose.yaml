@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5445:5432"
+  
+  my_python:
+    image: webscrapper
