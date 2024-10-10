@@ -1,10 +1,20 @@
 services:
   db:
-    image: postgres:latest
+    image: postgres:15
     environment:
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_PASSWORD: ${PASSWORD}
     ports:
       - "5445:5432"
+    tty: true
   
   my_python:
-    image: webscrapper
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    tty: true
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      PASSWORD: ${PASSWORD}
+      USER: ${USER}

@@ -1,3 +1,3 @@
-docker build -t webscrapper .
+#!/bin/bash
 
-docker compose up
+docker compose up --build

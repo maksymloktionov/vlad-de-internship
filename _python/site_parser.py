@@ -2,28 +2,36 @@ import psycopg2 as ps
 import bs4
 import pandas as pd
 import requests
+import os
+import logging
+from dotenv import load_dotenv
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+load_dotenv()
 
 class Webscrapper:
 
     def __init__(self, url: str) -> None:
         self.url = url
 
-    def __start_connections(self) -> ps.extensions.connection:
+    @staticmethod
+    def _start_connections() -> ps.extensions.connection:
         try:
             connection = ps.connect(
-                host = "db",
-                port = "5432",
-                dbname = "postgres",
-                password = "1234",
-                user = "postgres"
+                host = os.getenv('DB_HOST'),
+                port = os.getenv('DB_PORT'),
+                dbname = os.getenv('DB_NAME'),
+                password = os.getenv('PASSWORD'),
+                user = os.getenv('DB_USER')
             )
 
             return connection
         except Exception as e:
-            print(f"Error: {e}")
+            logging.info(f"Error: {e}")
 
-    def __get_data(self) -> list[tuple[str, str, str]]:
-        content = requests.request("get", self.url)
+    @staticmethod
+    def _get_data(url: str) -> list[tuple[str, str, str]]:
+        content = requests.request("get", url)
         soup = bs4.BeautifulSoup(content.text, "html.parser")
 
         all_lists = soup.find_all('ul', id="", recursive=True)
@@ -41,13 +49,13 @@ class Webscrapper:
 
         return res
     
-    def __construct_df(self) -> pd.DataFrame:
-        site_data = self.__get_data()
+    def _construct_df(self) -> pd.DataFrame:
+        site_data = self._get_data(self.url)
 
         dict_data = {
-            "Date": [ele[0] + ' 2000' for ele in site_data],
-            "Name": [ele[1] for ele in site_data],
-            "Info": [ele[2] for ele in site_data],
+            "Date": [f"{date} 2000" for date, _, _ in site_data],
+            "Name": [name for _, name, _ in site_data],
+            "Info": [info for _, _, info in site_data],
         }
 
         df = pd.DataFrame.from_dict(dict_data)
@@ -56,8 +64,8 @@ class Webscrapper:
     
     def website_data_to_db(self) -> None:
         try:
-            connection = self.__start_connections()
-            df = self.__construct_df()
+            connection = self._start_connections()
+            df = self._construct_df()
 
             cursor = connection.cursor()
 
@@ -78,18 +86,16 @@ class Webscrapper:
                     """, (i, row['Date'], row['Name'], row['Info']))
                 connection.commit()
 
-            print("Done")
+            logging.info("Data has been successfully moved")
 
             cursor.close()
             connection.close()
             
         except Exception as e:
-            print(f"Error: {e}")
+            logging.info(f"Error: {e}")
 
 if __name__ == "__main__":
 
     webscrp = Webscrapper("https://uk.wikipedia.org/wiki/2000")
 
     webscrp.website_data_to_db()
-
-

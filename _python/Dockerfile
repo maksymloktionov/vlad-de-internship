@@ -1,8 +1,11 @@
-FROM python:3.11.4
+FROM python:3.12.5
 
-COPY requirements.txt .
-COPY site_parser.py .
+RUN mkdir /app
 
-RUN python -m pip install -r /requirements.txt
+WORKDIR /app
 
-CMD ["python", "./site_parser.py"]
+COPY requirements.txt /app
+
+RUN pip3 install -r /app/requirements.txt
+
+COPY . /app
