@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_PASSWORD: 1234
     container_name: postgres-db
     ports:
       - "5445:5432"
@@ -15,8 +15,9 @@ services:
     tty: true
     container_name: python-container
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      DB_NAME: ${DB_NAME}
-      PASSWORD: ${PASSWORD}
-      USER: ${USER}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: postgres
+      PASSWORD: 1234
+      DB_USER: postgres
+
