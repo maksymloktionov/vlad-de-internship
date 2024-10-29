@@ -1,0 +1,11 @@
+FROM python:3.11.4
+
+COPY ./dbt /app
+WORKDIR /app
+
+RUN pip3 install -r requirements.txt
+
+ENV DBT_PROFILES_DIR=/app/profiles/
+ENV DBT_PROJECT_DIR=/app/football_dbt/
+
+# CMD [ "dbt", "build" ]

@@ -1,0 +1,74 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: goalscorers
+        description: goalscorers raw data
+        columns:
+          - name: id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: date
+            description: date of the match
+          - name: home_team
+            description: the name of the home team
+          - name: away_team
+            description: the name of the away team
+          - name: team
+            description: name of the team scoring the goal
+          - name: scorer
+            description: name of the player scoring the goal
+          - name: minute
+            description: time when the goal was scored
+          - name: own_goal
+            description: whether the goal was an own-goa
+          - name: penalty
+            description: whether the goal was a penalty
+      - name: results
+        description: goalscorers raw data
+        columns:
+          - name: id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: date
+            description: date of the match
+          - name: home_team
+            description: the name of the home team
+          - name: away_team
+            description: the name of the away team
+          - name: home_score
+            description: full-time home team score including extra time, not including penalty-shootouts
+          - name: away_score
+            description: ull-time away team score including extra time, not including penalty-shootouts
+          - name: tournament
+            description: the name of the tournament
+          - name: city
+            description: the name of the city/town/administrative unit where the match was played
+          - name: country
+            description: the name of the country where the match was played
+          - name: neutral
+            description: TRUE/FALSE column indicating whether the match was played at a neutral venue
+      - name: shootouts
+        description: goalscorers raw data
+        columns:
+          - name: id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: date
+            description: date of the match
+          - name: home_team
+            description: the name of the home team
+          - name: away_team
+            description: the name of the away team
+          - name: winner
+            description: winner of the penalty-shootout
+          - name: first_shooter
+            description: the team that went first in the shootout
