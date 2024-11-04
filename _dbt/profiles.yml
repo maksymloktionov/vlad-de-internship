@@ -1,4 +1,4 @@
-football_dbt:
+_dbt:
   outputs:
     dev:
       dbname: postgres

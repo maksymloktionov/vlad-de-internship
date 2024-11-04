@@ -1,2 +1,3 @@
-kaggle.json
-dbt-venv
+target/
+dbt_packages/
+logs/
