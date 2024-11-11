@@ -1,6 +1,6 @@
 FROM python:3.11.4
 
-COPY ./dbt_support/dbt /app
+COPY ./_dbt/dbt_support/dbt /app
 COPY _dbt /app/_dbt
 WORKDIR /app
 

@@ -12,7 +12,7 @@ services:
   
   pars_to_db:
     build: 
-      context: ./dbt_support/parser/
+      context: ./_dbt/dbt_support/parser/
       dockerfile: Dockerfile.python
       args:
         - DATA=martj42/international-football-results-from-1872-to-2017
@@ -29,7 +29,7 @@ services:
 
   dbt:
     build:
-      dockerfile: ./dbt_support/dbt/Dockerfile.dbt
+      dockerfile: ./_dbt/dbt_support/dbt/Dockerfile.dbt
     tty: true
     container_name: dbt-container
     depends_on:
