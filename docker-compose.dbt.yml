@@ -12,12 +12,12 @@ services:
   
   pars_to_db:
     build: 
-      context: ./_dbt/dbt_support/parser/
-      dockerfile: Dockerfile.python
+      context: ./_dbt/
+      dockerfile: Dockerfile
       args:
         - DATA=martj42/international-football-results-from-1872-to-2017
     tty: true
-    container_name: python-container
+    container_name: python-dbt-container
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -26,14 +26,6 @@ services:
       DB_USER: postgres
     depends_on:
       - db
-
-  dbt:
-    build:
-      dockerfile: ./_dbt/dbt_support/dbt/Dockerfile.dbt
-    tty: true
-    container_name: dbt-container
-    depends_on:
-      - pars_to_db
 
 volumes:
   pg-data:

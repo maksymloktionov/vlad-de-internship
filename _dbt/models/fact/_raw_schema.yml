@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_raw__goals
+  - name: fact_raw__goals
     description: fact table for each goal
     columns:
       - name: id

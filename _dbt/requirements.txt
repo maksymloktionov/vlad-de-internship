@@ -1,0 +1,6 @@
+kaggle==1.6.17
+pandas==2.2.3
+sqlalchemy==2.0.29
+psycopg2==2.9.9
+dbt-core==1.8.8
+dbt-postgres==1.8.2

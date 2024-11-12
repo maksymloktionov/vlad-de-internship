@@ -20,4 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+ENV DBT_PROFILES_DIR=/app/
+ENV DBT_PROJECT_DIR=/app/
+
 # CMD [ "python3", "parser.py" ]
