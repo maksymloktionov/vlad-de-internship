@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: 1234 
+    tty: true
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  jupyter:
+    build:
+      context: ./_spark
+      dockerfile: Dockerfile.spark
+    ports:
+      - "8888:8888"
+    tty: true
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
