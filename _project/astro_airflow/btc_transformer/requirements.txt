@@ -1,0 +1,4 @@
+dbt-core==1.8.8
+dbt-databricks
+apache-airflow-providers-databricks
+binance-connector==3.9.0
