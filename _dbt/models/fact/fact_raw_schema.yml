@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: fact_raw__goals
+    description: fact table for each goal
+    columns:
+      - name: id
+        description: primary eky
+        tests:
+          - unique
+          - not_null
+      - name: date_id
+        description: foreign key from dim table date
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_raw__date')
+              field: id
+      - name: match_id
+        description: foreign key from dim table match
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_raw__matches')
+              field: id
+      - name: team_id
+        description: foreign key from dim table team
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_raw__teams')
+              field: id
+      - name: tournament_id
+        description: foreign key from dim table tournament
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_raw__tournament')
+              field: id

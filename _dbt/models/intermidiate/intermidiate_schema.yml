@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: int_raw__combinations
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: home_score
+        tests:
+          - not_null
+          - all_positive
+      - name: away_score
+        tests:
+          - not_null
+          - all_positive
+  - name: int_raw__teams
+    columns:
+      - name: team_name
+        tests:
+          - relationships:
+              to: ref('int_raw__combinations')
+              field: home_team
+          - relationships:
+              to: ref('int_raw__combinations')
+              field: away_team
+  - name: int_raw__teams_wins
+    columns:
+      - name: wins
+        tests:
+          - not_null
+          - all_positive
+  - name: int_raw__teams_ties
+    columns:
+      - name: ties
+        tests:
+          - not_null
+          - all_positive
+  - name: int_raw__teams_loses
+    columns:
+      - name: loses
+          - not_null
+          - all_positive
+  - name: int_raw__teams_goals
+    columns:
+      - name: total_goals
+        tests:
+          - not_null
+          - all_positive

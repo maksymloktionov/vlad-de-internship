@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: stg_raw__goalscorers
+    description: stage table for goalscorers data
+    columns:
+      - name: id
+        description: primary key
+  - name: stg_raw__results
+    description:  stage table for results data
+    columns:
+      - name: id
+        description: primary key

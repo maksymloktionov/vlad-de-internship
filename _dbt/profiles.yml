@@ -1,0 +1,12 @@
+_dbt:
+  outputs:
+    dev:
+      dbname: postgres
+      host: db
+      pass: '1234'
+      port: 5432
+      schema: public
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev

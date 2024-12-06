@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: 1234
+    container_name: postgres-db
+    ports:
+      - "5445:5432"
+    tty: true
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+  
+  pars_to_db:
+    build: 
+      context: ./_dbt/
+      dockerfile: Dockerfile
+      args:
+        - DATA=martj42/international-football-results-from-1872-to-2017
+    tty: true
+    container_name: python-dbt-container
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: postgres
+      PASSWORD: 1234
+      DB_USER: postgres
+    depends_on:
+      - db
+
+volumes:
+  pg-data:
